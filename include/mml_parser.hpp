@@ -18,8 +18,6 @@
 
 namespace carto {
 
-namespace al = boost::algorithm;
-
 struct mml_parser {
 
     parse_tree tree;
