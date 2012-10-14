@@ -94,6 +94,10 @@ std::string filter_printer::operator() (utree const& ut)
     typedef utree::const_iterator iter;
     iter it = ut.begin(),
         end = ut.end();
+    if (it == end)
+    {
+        throw carto_error("Empty node ", get_location(ut));
+    }
     
     if (node_type == FILTER_VAR || node_type == FILTER_VAR_ATTR) {
             

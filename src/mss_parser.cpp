@@ -194,9 +194,13 @@ void mss_parser::parse_style(mapnik::Map& map, utree const& node, style_env cons
         style_env env(parent_env);
         mapnik::rule rule(parent_rule, true);
         
-        BOOST_ASSERT(*style_it.size() == 3);
+        BOOST_ASSERT(style_it->size() == 3);
         iter name_it  = (*style_it).begin(),
              name_end = (*style_it).end();
+        if (name_it == name_end)
+        {
+            continue;
+        }
         
         utree const& uname   = *name_it; name_it++;
         utree const& uattach = *name_it; name_it++;
@@ -374,7 +378,7 @@ bool mss_parser::parse_line(mapnik::rule& rule, std::string const& key, utree co
     
     if (key == "line-dasharray") {
         
-        BOOST_ASSERT( (value.size()-1) % 2 == 0 );
+        //BOOST_ASSERT( (value.size()-1) % 2 == 0 );
         
         typedef utree::const_iterator iter;
         iter it = value.begin(),
@@ -564,7 +568,7 @@ bool mss_parser::parse_text(mapnik::Map& map, mapnik::rule& rule, std::string co
             s->set_face_name(as<std::string>(value));
         } else {
             
-            mapnik::font_set fs;
+            mapnik::font_set fs("");
             std::size_t hash = 0;
             
             typedef utree::const_iterator iter;

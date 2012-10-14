@@ -78,6 +78,10 @@ utree expression::eval_function(utree const& node)
     
     iter it  = node.begin(),
          end = node.end();
+    if (it == end)
+    {
+        throw carto_error("Empty function in node ", get_location(node));
+    }
     
     std::string func_name = as<std::string>(*it);
     ++it;
@@ -142,7 +146,7 @@ utree expression::eval_function(utree const& node)
 
 utree expression::fix_color_range(utree const& node) 
 {
-    BOOST_ASSERT(is_color(node) == TRUE);
+    BOOST_ASSERT(is_color(node) == true);
     BOOST_ASSERT(node.size() == 4);
 
     typedef utree::const_iterator iter;
