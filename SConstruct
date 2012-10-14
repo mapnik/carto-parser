@@ -58,7 +58,7 @@ mapnik_ldflags = _mapnik_config('--libs', '--ldflags', '--dep-libs')
 (plugin_path,) = _mapnik_config('--input-plugins')
 
 env.Append(CPPPATH=[ 'include' ])
-env.Append(CXXFLAGS=mapnik_cflags + [ '-DMAPNIKDIR="\\"{0}\\""'.format(pipes.quote(plugin_path)) ] + [ '-Wall', '-pedantic', '-Wfatal-errors', '-Werror', '-Wno-unused-but-set-variable', '-Wno-format' ])
+env.Append(CXXFLAGS=mapnik_cflags + [ '-DMAPNIKDIR="\\"{0}\\""'.format(pipes.quote(plugin_path)) ] + [ '-Wall', '-pedantic', '-Wfatal-errors', '-Werror', '-Wno-format' ])
 env.Append(LINKFLAGS=mapnik_ldflags + [ '-lboost_program_options' ])
 
 objects = env.Object(source=[ fn for fn in glob.glob('src/*.cpp') + glob.glob('src/**/*.cpp') if fn != 'src/main.cpp' ])
