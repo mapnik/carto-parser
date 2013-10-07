@@ -10,14 +10,18 @@
 
 #include <iosfwd>
 #include <sstream>
+#include <fstream>
 
+#include <mapnik/version.hpp>
 #include <mapnik/map.hpp>
 #include <mapnik/layer.hpp>
 #include <mapnik/params.hpp>
 #include <mapnik/datasource.hpp>
 #include <mapnik/datasource_cache.hpp>
+#include <mapnik/feature_type_style.hpp>
 
 #include <boost/filesystem.hpp>
+#include <boost/variant.hpp>
 #include <boost/algorithm/string.hpp>
 
 #include <mss_parser.hpp>
@@ -143,9 +147,12 @@ void mml_parser::parse_map(mapnik::Map& map)
             } else {
                 switch(value.which()) {
                     case boost::spirit::utree_type::int_type:
-                        params[key] = as<int>(value);
+                        // https://github.com/mapnik/mapnik/issues/2012
+                        //params[key] = as<int>(value);
+                        params[key] = as<std::string>(value);
                     case boost::spirit::utree_type::double_type:
-                        params[key] = as<double>(value);
+                        //params[key] = as<double>(value);
+                        params[key] = as<std::string>(value);
                     default:
                         params[key] = as<std::string>(value);
                 }
@@ -160,7 +167,7 @@ void mml_parser::parse_map(mapnik::Map& map)
                                       s_end =  map.end_styles();
     
     for(; s_it!=s_end; ++s_it) {
-        std::string name = (*s_it).first;
+        std::string name = s_it->first;
         
         // remove attachment from style name
         size_t loc = name.find("::");
@@ -321,8 +328,7 @@ void mml_parser::parse_Datasource(mapnik::layer& lyr, utree const& node)
     }
     
     try {
-        boost::shared_ptr<mapnik::datasource> ds = mapnik::datasource_cache::instance().create(params,false);
-        lyr.set_datasource(ds);
+        lyr.set_datasource(mapnik::datasource_cache::instance().create(params));
     } catch (std::exception& e) {
         
         std::stringstream ss;

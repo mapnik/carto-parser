@@ -13,17 +13,18 @@
 #include <utility/utree.hpp>
 #include <utility/environment.hpp>
 
-#include <boost/utility.hpp>
 #include <boost/variant.hpp>
 #include <boost/unordered_map.hpp>
 
 #include <mapnik/rule.hpp>
+#include <mapnik/expression_grammar.hpp>
 #include <mapnik/map.hpp>
+#include <mapnik/noncopyable.hpp>
 
 
 namespace carto {
 
-struct mss_parser : private boost::noncopyable {
+struct mss_parser : private mapnik::noncopyable {
 
 private:
     parse_tree tree;
@@ -31,6 +32,7 @@ private:
     std::string path;
     
     boost::unordered_map<std::size_t, std::string> fontset_names;
+    mapnik::transcoder tr_;
     mapnik::expression_grammar<std::string::const_iterator> expr_grammar;
     
 public:

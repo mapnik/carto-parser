@@ -4,7 +4,12 @@
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/spirit/include/support_utree.hpp>
 
+#include <mapnik/version.hpp>
+#if MAPNIK_VERSION >= 200300
+#include <mapnik/css_color_grammar_impl.hpp>
+#else
 #include <mapnik/css_color_grammar_def.hpp>
+#endif
 
 #include <utility/color.hpp>
 #include <parse/error_handler.hpp>

@@ -18,10 +18,13 @@
 #include <mapnik/color.hpp>
 #include <mapnik/color_factory.hpp>
 #include <mapnik/font_engine_freetype.hpp>
+#include <mapnik/feature_type_style.hpp>
+#include <mapnik/parse_path.hpp>
 #include <mapnik/font_set.hpp>
 #include <mapnik/expression_string.hpp>
 #include <mapnik/expression.hpp>
 #include <mapnik/version.hpp>
+#include <mapnik/unicode.hpp>
 #include <mapnik/rule.hpp>
 #include <mapnik/image_scaling.hpp>
 #include <mapnik/parse_transform.hpp>
@@ -40,13 +43,15 @@ mss_parser::mss_parser(parse_tree const& pt, std::string const& path_, bool stri
   : tree(pt),
     strict(strict_),
     path(path_),
-    expr_grammar(mapnik::transcoder("utf8"))
+    tr_("utf8"),
+    expr_grammar(tr_)
 {}
   
 mss_parser::mss_parser(std::string const& in, std::string const& path_, bool strict_)
   : strict(strict_),
     path(path_),
-    expr_grammar(mapnik::transcoder("utf8"))
+    tr_("utf8"),
+    expr_grammar(tr_)
 { 
     typedef position_iterator<std::string::const_iterator> iter;
     tree = build_parse_tree< carto_parser<iter> >(in, path);    
@@ -55,7 +60,8 @@ mss_parser::mss_parser(std::string const& in, std::string const& path_, bool str
 mss_parser::mss_parser(std::string const& filename, bool strict_)
   : strict(strict_),
     path(filename),
-    expr_grammar(mapnik::transcoder("utf8"))
+    tr_("utf8"),
+    expr_grammar(tr_)
 { 
 
     std::ifstream file(filename.c_str(), std::ios_base::in);

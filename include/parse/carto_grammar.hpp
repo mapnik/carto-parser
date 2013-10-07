@@ -11,10 +11,6 @@
 #include <limits>
 
 #include <boost/spirit/include/phoenix.hpp>
-
-#include <mapnik/css_color_grammar_def.hpp>
-
-
 #include <utility/color.hpp>
 #include <parse/filter_grammar.hpp>
 #include <parse/expression_grammar.hpp>
