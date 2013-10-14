@@ -5,7 +5,7 @@
 #include <boost/spirit/include/support_utree.hpp>
 
 #include <mapnik/version.hpp>
-#if MAPNIK_VERSION >= 200300
+#if MAPNIK_VERSION >= 200200
 #include <mapnik/css_color_grammar_impl.hpp>
 #else
 #include <mapnik/css_color_grammar_def.hpp>
