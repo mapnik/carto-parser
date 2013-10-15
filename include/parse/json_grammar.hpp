@@ -65,7 +65,7 @@ struct json_parser : qi::grammar< Iterator, utree(), ascii::space_type>
 
         start = value.alias();
 
-        value =   null
+        value = ( null
                 | real
                 | int_
                 | bool_
@@ -73,7 +73,7 @@ struct json_parser : qi::grammar< Iterator, utree(), ascii::space_type>
                 | object
                 | array
                 | empty_object
-                | empty_array
+                | empty_array )
                 > annotate(_val, JSON_VALUE);
         
         null = "null" >> qi::attr(spirit::nil); 

@@ -44,7 +44,7 @@ struct push_annotation_impl {
         annotations.push_back( annotation_type(get_location(rng.begin()), type) );
         std::size_t n = annotations.size() - 1;
 
-        BOOST_ASSERT(n <= (std::numeric_limits<short>::max)());
+        BOOST_ASSERT(n <= static_cast<std::size_t>((std::numeric_limits<short>::max)()));
         ast.tag(n);
     }
 };
