@@ -23,12 +23,12 @@ if not sys.stdout.isatty():
 
 # construct environment
 env = Environment(
-  CXXCOMSTR='%scxx: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  CCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  SHCXXCOMSTR='%scxx: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  SHCCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
-  LINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
-  SHLINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
+  #CXXCOMSTR='%scxx: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
+  #CCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
+  #SHCXXCOMSTR='%scxx: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
+  #SHCCCOMSTR='%scc: $SOURCE -> $TARGET%s' % (colors['green'], colors['end']),
+  #LINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
+  #SHLINKCOMSTR='%sld: $TARGET%s' % (colors['yellow'], colors['end']),
 
   #tools=["default"],
   ENV = {'PATH' : os.environ['PATH'],
