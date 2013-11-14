@@ -198,8 +198,11 @@ void mss_parser::parse_style(mapnik::Map& map, utree const& node, style_env cons
     for (; style_it != style_end; ++style_it) {
         
         style_env env(parent_env);
+#if MAPNIK_VERSION >= 200300
+        mapnik::rule rule(parent_rule);
+#else
         mapnik::rule rule(parent_rule, true);
-        
+#endif
         BOOST_ASSERT(style_it->size() == 3);
         iter name_it  = (*style_it).begin(),
              name_end = (*style_it).end();
@@ -230,8 +233,11 @@ void mss_parser::parse_style(mapnik::Map& map, utree const& node, style_env cons
         
         if (uattach.size() != 0) {
             name += "::"+as<std::string>(uattach);
-            
+#if MAPNIK_VERSION >= 200300
+            map.insert_style(name, mapnik::feature_type_style((*map_it).second));
+#else
             map.insert_style(name, mapnik::feature_type_style((*map_it).second, true));
+#endif
             map_it = map.styles().find(name);
         }
         
